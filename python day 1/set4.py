@@ -193,6 +193,26 @@ print("Missing number:", missing_number)  # Output: Missing number: 2
 
 
 
+def climb_stairs(n):
+    if n <= 2:
+        return n
+
+    # Initialize a list to store the number of ways for each step
+    ways = [0] * (n + 1)
+
+    # There is only one way to reach the first two steps (0 and 1 step)
+    ways[0], ways[1] = 1, 1
+
+    # Calculate the number of ways for each step up to n
+    for i in range(2, n + 1):
+        ways[i] = ways[i - 1] + ways[i - 2]
+
+    return ways[n]
+
+# Example usage:
+n = 3
+distinct_ways = climb_stairs(n)
+print("Distinct ways to climb the staircase:", distinct_ways)  # Output: 3
 
 
 
@@ -202,6 +222,49 @@ print("Missing number:", missing_number)  # Output: Missing number: 2
 #     - *Input*: A binary tree
 #     - *Output*: Inverted binary tree
 
+
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def invert_binary_tree(root):
+    if not root:
+        return None
+
+    # Swap left and right subtrees using recursion
+    root.left, root.right = invert_binary_tree(root.right), invert_binary_tree(root.left)
+
+    return root
+
+# Example usage:
+# Create the original binary tree
+root = TreeNode(1)
+root.left = TreeNode(2)
+root.right = TreeNode(3)
+root.left.left = TreeNode(4)
+root.left.right = TreeNode(5)
+root.right.left = TreeNode(6)
+root.right.right = TreeNode(7)
+
+# Invert the binary tree
+inverted_root = invert_binary_tree(root)
+
+# Display the result (in-order traversal for verification)
+def in_order_traversal(node):
+    if not node:
+        return
+    in_order_traversal(node.left)
+    print(node.val, end=" ")
+    in_order_traversal(node.right)
+
+print("Original Binary Tree:")
+in_order_traversal(root)  # Output: 4 2 5 1 6 3 7
+
+print("\nInverted Binary Tree:")
+in_order_traversal(inverted_root)  # Output: 7 3 6 1 5 2 4
 
 
 
@@ -215,6 +278,17 @@ print("Missing number:", missing_number)  # Output: Missing number: 2
 
 
 
+def is_power_of_two(n):
+    if n <= 0:
+        return False
+
+    # Check if only one bit is set (i.e., n & (n - 1) is 0)
+    return n & (n - 1) == 0
+
+# Example usage:
+print(is_power_of_two(4))  # Output: True (2^2)
+print(is_power_of_two(16)) # Output: True (2^4)
+print(is_power_of_two(7))  # Output: False
 
 
 
