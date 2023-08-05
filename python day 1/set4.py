@@ -92,6 +92,28 @@ print(longest_common_prefix(strings))  # Output: "app"
 #     - *Output*: "['abc', 'acb', 'bac', 'bca', 'cab', 'cba']"
 
 
+def permutations_without_repetition(s):
+    if len(s) == 0:
+        return [""]
+    
+    all_permutations = []
+    for i in range(len(s)):
+        first_char = s[i]
+        remaining_chars = s[:i] + s[i+1:]
+        
+        # Recursively find permutations of the remaining characters
+        remaining_permutations = permutations_without_repetition(remaining_chars)
+        
+        # Combine the first character with each permutation of the remaining characters
+        for perm in remaining_permutations:
+            all_permutations.append(first_char + perm)
+    
+    return all_permutations
+
+# Example usage:
+word = "abc"
+result = permutations_without_repetition(word)
+print(result)
 
 
 
@@ -101,6 +123,42 @@ print(longest_common_prefix(strings))  # Output: "app"
 #     - *Output*: "1, None, 3, None, None"
 
 
+class QueueUsingStack:
+    def __init__(self):
+        self.stack1 = []  # Main stack for enqueueing elements
+        self.stack2 = []  # Temporary stack for dequeueing elements
+
+    def enqueue(self, item):
+        self.stack1.append(item)
+
+    def dequeue(self):
+        if not self.stack2:  # If stack2 is empty, move elements from stack1
+            while self.stack1:
+                self.stack2.append(self.stack1.pop())
+        if not self.stack2:  # If both stacks are empty, the queue is empty
+            return None
+        return self.stack2.pop()
+
+    def is_empty(self):
+        return not (self.stack1 or self.stack2)
+
+    def size(self):
+        return len(self.stack1) + len(self.stack2)
+
+# Example usage:
+queue = QueueUsingStack()
+queue.enqueue(1)
+queue.enqueue(2)
+queue.enqueue(3)
+
+print(queue.dequeue())  # Output: 1
+print(queue.dequeue())  # Output: 2
+
+queue.enqueue(4)
+print(queue.dequeue())  # Output: 3
+print(queue.dequeue())  # Output: 4
+
+print(queue.is_empty())  # Output: True
 
 
 
@@ -112,6 +170,17 @@ print(longest_common_prefix(strings))  # Output: "app"
 
 
 
+def find_missing_number(nums):
+    n = len(nums)
+    total_sum = n * (n + 1) // 2  # Sum of the first n natural numbers
+    actual_sum = sum(nums)       # Sum of the elements in the array
+
+    return total_sum - actual_sum
+
+# Example usage:
+nums = [0, 1, 3, 4, 5]
+missing_number = find_missing_number(nums)
+print("Missing number:", missing_number)  # Output: Missing number: 2
 
 
 
