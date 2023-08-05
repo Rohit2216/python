@@ -620,6 +620,43 @@ print("Maximum Subarray Sum:", max_sum)  # Output: 6
 
 
 
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+
+class Stack:
+    def __init__(self):
+        self.head = None
+
+    def is_empty(self):
+        return self.head is None
+
+    def push(self, value):
+        new_node = Node(value)
+        new_node.next = self.head
+        self.head = new_node
+
+    def pop(self):
+        if self.is_empty():
+            return None
+        popped_value = self.head.value
+        self.head = self.head.next
+        return popped_value
+
+# Example usage:
+stack = Stack()
+stack.push(1)
+stack.push(2)
+print(stack.pop())  # Output: 2
+stack.push(3)
+print(stack.pop())  # Output: 3
+print(stack.pop())  # Output: 1
+print(stack.pop())  # Output: None
+
+
+
+
 # 20. **Basic Django Web App**: Create a basic web application using Django that has two routes, one that displays "Hello, World!" and one that displays "Goodbye, World!".
 #     - *Input*: Visit "/", Visit "/goodbye"
 #     - *Output*: "Hello, World!", "Goodbye, World!"
