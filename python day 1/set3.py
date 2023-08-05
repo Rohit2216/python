@@ -56,3 +56,24 @@ print(name_age_dict)
 
 
 
+# 1. **Two Sum Problem**: Given an array of integers and a target integer, find the two integers in the array that sum to the target.
+#     - *Input*: [2, 7, 11, 15], target = 9
+#     - *Output*: "[0, 1]"
+
+
+def find_two_sum(nums, target):
+    num_dict = {}
+
+    for i, num in enumerate(nums):
+        complement = target - num
+        if complement in num_dict:
+            return [num_dict[complement], i]
+        num_dict[num] = i
+
+    return []
+
+# Example usage:
+nums = [2, 7, 11, 15]
+target = 9
+result = find_two_sum(nums, target)
+print(result)  # Output: [0, 1] (because nums[0] + nums[1] = 2 + 7 = 9)
