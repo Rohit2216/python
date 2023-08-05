@@ -12,3 +12,47 @@ data = [("John", 25), ("Jane", 30)]
 
 # Call the function to print names and ages
 print_names_and_ages(data)
+
+
+
+
+
+
+# 1. **Dictionary Manipulation**: Create a dictionary with keys as names and values as ages. Write functions to add a new name-age pair, update the age of a name, and delete a name from the dictionary.
+#     - *Input*: Add "John": 25, Update "John": 26, Delete "John"
+#     - *Output*: "{}, {'John': 26}, {}"
+
+
+
+def add_name_age(dictionary, name, age):
+    dictionary[name] = age
+
+def update_age(dictionary, name, age):
+    if name in dictionary:
+        dictionary[name] = age
+    else:
+        print(f"{name} does not exist in the dictionary.")
+
+def delete_name(dictionary, name):
+    if name in dictionary:
+        del dictionary[name]
+    else:
+        print(f"{name} does not exist in the dictionary.")
+
+# Create an empty dictionary
+name_age_dict = {}
+
+# Add "John": 25
+add_name_age(name_age_dict, "John", 25)
+print(name_age_dict)
+
+# Update "John": 26
+update_age(name_age_dict, "John", 26)
+print(name_age_dict)
+
+# Delete "John"
+delete_name(name_age_dict, "John")
+print(name_age_dict)
+
+
+
