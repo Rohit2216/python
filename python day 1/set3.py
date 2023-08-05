@@ -194,6 +194,25 @@ fizzBuzz(15)
 
 
 
+def count_words(input_file, output_file):
+    try:
+        # Read the input file and count the number of words
+        with open(input_file, 'r') as file:
+            content = file.read()
+            word_count = len(content.split())
+
+        # Write the word count to the output file
+        with open(output_file, 'w') as file:
+            file.write(f"Number of words: {word_count}")
+
+    except FileNotFoundError:
+        print(f"File '{input_file}' not found.")
+
+# Example usage:
+input_file_name = "input.txt"
+output_file_name = "output.txt"
+
+count_words(input_file_name, output_file_name)
 
 
 
@@ -203,3 +222,20 @@ fizzBuzz(15)
 # 2. **Exception Handling**: Write a Python function that takes two numbers as inputs and returns their division, handling any potential exceptions (like division by zero).
 #     - *Input*: 5, 0
 #     - *Output*: "Cannot divide by zero."
+
+
+def divide_numbers(num1, num2):
+    try:
+        result = num1 / num2
+        return result
+    except ZeroDivisionError:
+        return "Cannot divide by zero."
+
+# Example usage:
+num1 = 5
+num2 = 0
+
+output = divide_numbers(num1, num2)
+print(output)  # Output: "Cannot divide by zero."
+
+
