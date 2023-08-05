@@ -480,6 +480,56 @@ print("Single Number:", single_number)  # Output: 4
 
 
 
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def is_palindrome(head):
+    # Step 1: Find the middle of the linked list
+    def find_middle(head):
+        slow = head
+        fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        return slow
+
+    # Step 2: Reverse the second half of the linked list
+    def reverse_list(head):
+        prev = None
+        while head:
+            next_node = head.next
+            head.next = prev
+            prev = head
+            head = next_node
+        return prev
+
+    if not head or not head.next:
+        return True
+
+    middle = find_middle(head)
+    second_half = reverse_list(middle)
+
+    # Step 3: Compare the first and reversed second halves
+    while second_half:
+        if head.val != second_half.val:
+            return False
+        head = head.next
+        second_half = second_half.next
+
+    return True
+
+# Example usage:
+# 1 -> 2 -> 3 -> 2 -> 1 is a palindrome
+linked_list = ListNode(1, ListNode(2, ListNode(3, ListNode(2, ListNode(1)))))
+print(is_palindrome(linked_list))  # Output: True
+
+# 1 -> 2 -> 3 is not a palindrome
+linked_list = ListNode(1, ListNode(2, ListNode(3)))
+print(is_palindrome(linked_list))  # Output: False
+
+
 
 
 
