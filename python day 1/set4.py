@@ -300,6 +300,18 @@ print(is_power_of_two(7))  # Output: False
 
 
 
+def contains_duplicate(nums):
+    seen = set()
+    for num in nums:
+        if num in seen:
+            return True
+        seen.add(num)
+    return False
+
+# Example usage:
+print(contains_duplicate([1, 2, 3, 4, 5]))     # Output: False (no duplicates)
+print(contains_duplicate([1, 2, 3, 4, 1]))     # Output: True (duplicate: 1)
+print(contains_duplicate([7, 9, 3, 2, 6, 2]))  # Output: True (duplicate: 2)
 
 
 
@@ -311,6 +323,25 @@ print(is_power_of_two(7))  # Output: False
 
 
 
+def binary_search(arr, target):
+    left, right = 0, len(arr) - 1
+
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+
+    return -1  # Target not found in the array
+
+# Example usage:
+arr = [1, 2, 3, 4, 5, 6]
+target = 4
+index = binary_search(arr, target)
+print("Output:", index)  # Output: 3
 
 
 
@@ -323,6 +354,38 @@ print(is_power_of_two(7))  # Output: False
 
 
 
+class Graph:
+    def __init__(self):
+        self.graph = {}
+
+    def add_edge(self, u, v):
+        self.graph.setdefault(u, []).append(v)
+        self.graph.setdefault(v, []).append(u)
+
+    def dfs(self, node, visited):
+        if node not in visited:
+            visited.add(node)
+            print(node, end=" ")
+
+            for neighbor in self.graph.get(node, []):
+                self.dfs(neighbor, visited)
+
+    def depth_first_search(self, start_node):
+        visited = set()
+        self.dfs(start_node, visited)
+        print()  # Print a newline after DFS traversal
+
+# Example usage:
+graph = Graph()
+graph.add_edge(1, 2)
+graph.add_edge(1, 3)
+graph.add_edge(2, 4)
+graph.add_edge(3, 4)
+graph.add_edge(4, 5)
+graph.add_edge(4, 6)
+
+print("Depth-First Search Traversal:")
+graph.depth_first_search(1)
 
 
 
@@ -348,6 +411,43 @@ print(is_power_of_two(7))  # Output: False
 
 
 
+from collections import defaultdict, deque
+
+class Graph:
+    def __init__(self):
+        self.graph = defaultdict(list)
+
+    def add_edge(self, u, v):
+        self.graph[u].append(v)
+        self.graph[v].append(u)
+
+    def bfs(self, start_node):
+        visited = set()
+        queue = deque([start_node])
+
+        while queue:
+            node = queue.popleft()
+            if node not in visited:
+                visited.add(node)
+                print(node, end=" ")
+
+                for neighbor in self.graph[node]:
+                    if neighbor not in visited:
+                        queue.append(neighbor)
+
+        print()  # Print a newline after BFS traversal
+
+# Example usage:
+graph = Graph()
+graph.add_edge(1, 2)
+graph.add_edge(1, 3)
+graph.add_edge(2, 4)
+graph.add_edge(3, 4)
+graph.add_edge(4, 5)
+graph.add_edge(4, 6)
+
+print("Breadth-First Search Traversal:")
+graph.bfs(1)
 
 
 
@@ -358,6 +458,16 @@ print(is_power_of_two(7))  # Output: False
 
 
 
+def find_single_number(nums):
+    result = 0
+    for num in nums:
+        result ^= num
+    return result
+
+# Example usage:
+nums = [4, 1, 2, 1, 2]
+single_number = find_single_number(nums)
+print("Single Number:", single_number)  # Output: 4
 
 
 
