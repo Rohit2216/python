@@ -1,73 +1,127 @@
-# Step 2: Implementing Menu Mastery
+class Dish:
+    def __init__(self, dish_id, dish_name, price, availability):
+        self.dish_id = dish_id
+        self.dish_name = dish_name
+        self.price = price
+        self.availability = availability
 
-# Initialize the menu dictionary with some dishes.
-menu = {
-    1: {'name': 'Margherita Pizza', 'price': 12.99, 'availability': True},
-    2: {'name': 'Pasta Carbonara', 'price': 10.99, 'availability': True},
-    # Add more dishes here
-}
+class Order:
+    def __init__(self, order_id, customer_name, dishes, status):
+        self.order_id = order_id
+        self.customer_name = customer_name
+        self.dishes = dishes
+        self.status = status
 
-# Function to display the entire menu with all its details.
-def display_menu(menu):
-    for dish_id, dish_info in menu.items():
-        print("-------------------------------------")
-        print(f"Dish ID: {dish_id}")
-        print(f"Name: {dish_info['name']}")
-        print(f"Price: ${dish_info['price']:.2f}")
-        availability_status = "Yes" if dish_info['availability'] else "No"
-        print(f"Availability: {availability_status}")
-    print("-------------------------------------")
+class ZestyZomato:
+    def __init__(self):
+        self.menu = []
+        self.orders = []
+        self.order_id_counter = 1
 
-# Function to add a new dish to the menu.
-def add_dish_to_menu(menu, name, price, availability):
-    next_dish_id = max(menu.keys(), default=0) + 1
-    new_dish = {'name': name, 'price': price, 'availability': availability}
-    menu[next_dish_id] = new_dish
+    def add_dish(self, dish_id, dish_name, price, availability):
+        dish = Dish(dish_id, dish_name, price, availability)
+        self.menu.append(dish)
+        print(f"{dish.dish_name} has been added to the menu.")
 
-# Function to remove a dish from the menu.
-def remove_dish_from_menu(menu, dish_id):
-    menu.pop(dish_id, None)
+    def remove_dish(self, dish_id):
+        for dish in self.menu:
+            if dish.dish_id == dish_id:
+                self.menu.remove(dish)
+                print(f"{dish.dish_name} has been removed from the menu.")
+                break
+        else:
+            print("Dish not found in the menu.")
 
-# Function to update the availability of a dish.
-def update_dish_availability(menu, dish_id, availability):
-    if dish_id in menu:
-        menu[dish_id]['availability'] = availability
+    def update_dish_availability(self, dish_id, availability):
+        for dish in self.menu:
+            if dish.dish_id == dish_id:
+                dish.availability = availability
+                print(f"{dish.dish_name} availability has been updated.")
+                break
+        else:
+            print("Dish not found in the menu.")
 
-# Function to get user input for adding a new dish.
-def get_new_dish_input():
-    name = input("Enter the dish name: ")
-    price = float(input("Enter the price: "))
-    availability = input("Is the dish available (yes/no): ").lower() == 'yes'
-    return name, price, availability
+    def take_order(self, customer_name, dish_ids):
+        order_dishes = []
+        for dish_id in dish_ids:
+            dish = next((d for d in self.menu if d.dish_id == dish_id), None)
+            if not dish:
+                print(f"Dish with ID {dish_id} not found in the menu.")
+                return
 
-# Main program
-while True:
-    print("\n---- Zesty Zomato Menu Management ----")
-    print("1. Display Menu")
-    print("2. Add a New Dish")
-    print("3. Remove a Dish")
-    print("4. Update Dish Availability")
-    print("5. Exit")
+            if not dish.availability:
+                print(f"{dish.dish_name} is not available.")
+                return
 
-    choice = int(input("Enter your choice (1/2/3/4/5): "))
+            order_dishes.append(dish)
 
-    if choice == 1:
-        display_menu(menu)
-    elif choice == 2:
-        name, price, availability = get_new_dish_input()
-        add_dish_to_menu(menu, name, price, availability)
-        print("Dish added successfully!")
-    elif choice == 3:
-        dish_id = int(input("Enter the Dish ID to remove: "))
-        remove_dish_from_menu(menu, dish_id)
-        print("Dish removed successfully!")
-    elif choice == 4:
-        dish_id = int(input("Enter the Dish ID to update availability: "))
-        availability = input("Is the dish available (yes/no): ").lower() == 'yes'
-        update_dish_availability(menu, dish_id, availability)
-        print("Availability updated successfully!")
-    elif choice == 5:
-        print("Exiting...")
-        break
-    else:
-        print("Invalid choice. Please try again.")
+        order = Order(self.order_id_counter, customer_name, order_dishes, "received")
+        self.orders.append(order)
+        self.order_id_counter += 1
+        print(f"Order {order.order_id} received and is being prepared.")
+
+    def update_order_status(self, order_id, new_status):
+        for order in self.orders:
+            if order.order_id == order_id:
+                order.status = new_status
+                print(f"Order {order.order_id} status has been updated to {new_status}.")
+                break
+        else:
+            print("Order not found.")
+
+    def review_orders(self):
+        for order in self.orders:
+            print(f"Order ID: {order.order_id}, Customer: {order.customer_name}, Status: {order.status}")
+
+    def run(self):
+        while True:
+            print("\nWelcome to Zesty Zomato!")
+            print("1. Add a dish to the menu")
+            print("2. Remove a dish from the menu")
+            print("3. Update dish availability")
+            print("4. Take a new order")
+            print("5. Update order status")
+            print("6. Review all orders")
+            print("7. Exit")
+
+            choice = input("Enter your choice: ")
+
+            if choice == "1":
+                dish_id = input("Enter the dish ID: ")
+                dish_name = input("Enter the dish name: ")
+                price = float(input("Enter the price: "))
+                availability = input("Is the dish available? (yes or no): ").lower() == "yes"
+                self.add_dish(dish_id, dish_name, price, availability)
+
+            elif choice == "2":
+                dish_id = input("Enter the dish ID to remove: ")
+                self.remove_dish(dish_id)
+
+            elif choice == "3":
+                dish_id = input("Enter the dish ID to update availability: ")
+                availability = input("Is the dish available? (yes or no): ").lower() == "yes"
+                self.update_dish_availability(dish_id, availability)
+
+            elif choice == "4":
+                customer_name = input("Enter the customer's name: ")
+                dish_ids = input("Enter the dish IDs (comma-separated) for the order: ").split(",")
+                self.take_order(customer_name, dish_ids)
+
+            elif choice == "5":
+                order_id = int(input("Enter the order ID to update status: "))
+                new_status = input("Enter the new status: ")
+                self.update_order_status(order_id, new_status)
+
+            elif choice == "6":
+                self.review_orders()
+
+            elif choice == "7":
+                print("Exiting Zesty Zomato. Have a great day!")
+                break
+
+            else:
+                print("Invalid input. Please try again.")
+
+if __name__ == "__main__":
+    zesty_zomato = ZestyZomato()
+    zesty_zomato.run()
