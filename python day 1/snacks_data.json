@@ -1,1 +1,1 @@
-[{"name": "chole bhature", "price": 30.0, "quantity": 1}, {"name": "kachori", "price": 20.0, "quantity": 1}]
+[{"id": 1, "name": "rajma", "price": 23.0, "quantity": 3, "available": true, "quantity_sold": 0}]
