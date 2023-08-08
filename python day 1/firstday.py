@@ -166,6 +166,7 @@ def fibonacci_sequence(n):
 
     return sequence[:n]
 
+
 # Test the function
 n = 5
 fib_sequence = fibonacci_sequence(n)
