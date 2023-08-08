@@ -8,8 +8,7 @@ __pycache__/
 
 # Ignore development environment files
 venv/
-*.sqlite3
-*.pyc
+
 
 # Ignore local settings
 local_settings.py
