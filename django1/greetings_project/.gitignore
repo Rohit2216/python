@@ -1,0 +1,34 @@
+# .gitignore
+
+# Ignore compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore development environment files
+venv/
+*.sqlite3
+*.pyc
+
+# Ignore local settings
+local_settings.py
+
+# Ignore media and static files
+media/
+staticfiles/
+
+# Ignore secret keys, API keys, and other sensitive information
+*.secret
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+*.swp
+
+# Ignore IDE or editor-specific files
+.vscode/
+.idea/
+
+# Ignore database migrations if using version control for them
+*/migrations/
